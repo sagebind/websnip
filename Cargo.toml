@@ -1,0 +1,14 @@
+[package]
+name = "websnip"
+version = "0.1.0"
+authors = ["Stephen M. Coakley <me@stephencoakley.com>"]
+
+[dependencies]
+chrono = "0.2"
+hyper = "0.9.*"
+iron = "0.4.*"
+json = "0.11.0"
+log = "0.3.6"
+logger = "0.2.0"
+simplelog = "0.4.2"
+wkhtmltopdf = "0.3.*"
