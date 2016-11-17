@@ -13,7 +13,7 @@ docker run -d -e MERCURY_API_KEY=<API_KEY> -p 80:80 sagebind/websnip
 Once Websnip is running, it will begin accepting GET requests on port 80. The query portion of the URL is the URL of the article to convert. For example, to download the article at [`http://words.steveklabnik.com/a-new-introduction-to-rust`](http://words.steveklabnik.com/a-new-introduction-to-rust) as a PDF, you can make a GET request like this:
 
 ```
-curl "http://localhost:80?http://words.steveklabnik.com/a-new-introduction-to-rust" > a-new-introduction-to-rust.pdf
+curl "http://localhost:80/?http://words.steveklabnik.com/a-new-introduction-to-rust" > a-new-introduction-to-rust.pdf
 ```
 
 ## Compiling
