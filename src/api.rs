@@ -1,5 +1,5 @@
 use chrono::*;
-use iron::headers::ContentType;
+use iron::headers::{AccessControlAllowOrigin, ContentType};
 use iron::middleware::Handler;
 use iron::mime::{Mime, TopLevel, SubLevel};
 use iron::prelude::*;
@@ -62,7 +62,9 @@ impl Handler for ApiHandler {
         // Generate HTTP response.
         let mut response = Response::new();
         response.status = Some(Status::Ok);
-        response.headers.set(ContentType(Mime(TopLevel::Application, SubLevel::Ext("pdf".into()), vec![])));
+        response.headers.set(AccessControlAllowOrigin::Any);
+        response.headers
+            .set(ContentType(Mime(TopLevel::Application, SubLevel::Ext("pdf".into()), vec![])));
         response.body = Some(Box::new(data));
 
         Ok(response)
