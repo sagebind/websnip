@@ -6,11 +6,12 @@ RUN apt-get update && \
     wget -q http://download.gna.org/wkhtmltopdf/0.12/0.12.3/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
     tar -xf wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
     cp -R wkhtmltox/* /usr && \
-    rm -r wkhtmltox wkhtmltox-0.12.3_linux-generic-amd64.tar.xz
+    apt-get clean && \
+    rm -rf wkhtmltox wkhtmltox-0.12.3_linux-generic-amd64.tar.xz /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY target/release/websnip /bin/websnip
 
 EXPOSE 80
 
-ENTRYPOINT ["/bin/websnip"]
+CMD ["/bin/websnip"]
 
