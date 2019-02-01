@@ -1,18 +1,15 @@
 use chrono::*;
-use hyper::client::Client;
-use hyper::header;
-use hyper::Url;
+use chttp::{Client, http::Request};
 use json;
 use std::env;
 use std::io::prelude::*;
 
-const BASE_URL: &'static str = "https://mercury.postlight.com/parser";
+const BASE_URI: &'static str = "https://mercury.postlight.com/parser";
 
 
 pub struct Mercury {
     client: Client,
-    base_url: Url,
-    api_key: Vec<u8>,
+    api_key: String,
 }
 
 impl Default for Mercury {
@@ -26,32 +23,24 @@ impl Mercury {
     /// Create a new Mercury client.
     pub fn new<S: Into<String>>(api_key: S) -> Mercury {
         Mercury {
-            client: Client::new(),
-            base_url: Url::parse(BASE_URL).unwrap(),
-            api_key: api_key.into().as_bytes().to_vec(),
+            client: Client::new().unwrap(),
+            api_key: api_key.into(),
         }
     }
 
     /// Invoke the Mercury parser.
     pub fn parse(&self, url: &str) -> Option<Article> {
-        // Generate the request URL.
-        let mut request_url = self.base_url.clone();
-        request_url.query_pairs_mut().append_pair("url", url);
-
-        // Generate the request headers.
-        let mut headers = header::Headers::new();
-        headers.set_raw("x-api-key", vec![self.api_key.clone()]);
+        let request = Request::get(format!("{}?url={}", BASE_URI, url))
+            .header("x-api-key", self.api_key.clone())
+            .body(())
+            .unwrap();
 
         // Send the API request.
-        let mut response = self.client
-            .get(request_url.as_str())
-            .headers(headers)
-            .send()
-            .unwrap();
+        let mut response = self.client.send(request).unwrap();
 
         // Read the response body.
         let mut response_body = String::new();
-        if response.read_to_string(&mut response_body).is_err() {
+        if response.body_mut().read_to_string(&mut response_body).is_err() {
             return None;
         }
 

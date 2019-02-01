@@ -1,5 +1,5 @@
 extern crate chrono;
-extern crate hyper;
+extern crate chttp;
 extern crate iron;
 extern crate json;
 #[macro_use] extern crate log;
