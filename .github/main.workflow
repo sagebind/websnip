@@ -5,5 +5,5 @@ workflow "Main" {
 
 action "Test" {
   uses = "docker://rust"
-  args = "cargo test"
+  args = ["sh", "-c", "apt update && apt install -y wkhtmltopdf && cargo test"]
 }
