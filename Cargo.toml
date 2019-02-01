@@ -6,7 +6,7 @@ authors = ["Stephen M. Coakley <me@stephencoakley.com>"]
 [dependencies]
 chrono = "0.2"
 chttp = "0.3"
-iron = "0.4.*"
+iron = "0.6.*"
 json = "0.11.0"
 log = "0.4.6"
 logger = "0.2.0"
