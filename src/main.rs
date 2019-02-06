@@ -13,11 +13,11 @@ mod pdf;
 
 use iron::prelude::*;
 use logger::Logger;
-use simplelog::{Config, LogLevelFilter, SimpleLogger};
+use simplelog::{Config, LevelFilter, SimpleLogger};
 
 
 fn main() {
-    SimpleLogger::init(LogLevelFilter::Info, Config::default()).unwrap();
+    SimpleLogger::init(LevelFilter::Info, Config::default()).unwrap();
 
     let (logger_before, logger_after) = Logger::new(None);
 
